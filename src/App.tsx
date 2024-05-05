@@ -1,11 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import UsersComponents from "./components/users/UsersComponents";
 
 
 const App = () => {
   return (
       <div>
+
+          <UsersComponents/>
 
       </div>
   );
