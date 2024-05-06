@@ -1,52 +1,32 @@
 import React, {FC} from 'react';
 import {IUserModel} from "../../models/userModel/UserModel";
-import {HairUserModel} from "../../models/userModel/HairUserModel";
-import {AddressUserModel} from "../../models/userModel/AddressUserModel";
-import {BankUserModel} from "../../models/userModel/BankUserModel";
-import {CompanyUserModel} from "../../models/userModel/CompanyUserModel";
+
+interface IProps {
+    user: IUserModel;
+}
+
+type IPostsType = IProps &  {children?: React.ReactNode} & {lift?:(userId:number) => void};
 
 
-export type IUserTypeProps = IUserModel &  {children?: React.ReactNode};
+const UserComponent:FC <IPostsType> = ({user, lift}) => {
 
-const UserComponent:FC <IUserTypeProps> = ({
-                                      id,
-                                      firstName,
-                                      lastName,
-                                      maidenName,
-                                      age,
-                                      gender,
-                                      email,
-                                      phone,
-                                      username,
-                                      password,
-                                      birthDate,
-                                      image,
-                                      bloodGroup,
-                                      height,
-                                      weight,
-                                      eyeColor,
-                                      hair,
-                                      domain,
-                                      ip,
-                                      address,
-                                      macAddress,
-                                      university,
-                                      bank,
-                                      company,
-                                      ein,
-                                      ssn,
-                                      userAgent
-                                  }) => {
-
+    const onclickHandler = () => {
+        if (lift) {
+            lift(user.id);
+        }
+    };
 
     return (
         <div>
 
             <div>
-                <h4>{id} - {firstName}</h4>
-                <img src={image} key={id} alt={firstName}/>
+                <h4>{user.id} - {user.firstName}</h4>
+                <img src={user.image} key={user.id} alt={user.firstName}/>
             </div>
-            <button>Click Me</button>
+
+            <button onClick={onclickHandler}>Click Me</button>
+
+            <hr/>
 
         </div>
     );

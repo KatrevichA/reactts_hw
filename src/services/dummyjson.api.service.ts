@@ -14,11 +14,14 @@ const getAllUsers = (): Promise<AxiosResponse<UsersResponseModel>> => {
     return axiosInstance.get("/users");
 }
 
-const getAllPosts = (id:number): Promise<AxiosResponse<PostModel[]>> => {
-    return axiosInstance.get("/posts/?userId="+id);
+
+// 'https://dummyjson.com/posts/user/5'
+const getAllPostsOfUser =  (id: number): Promise<AxiosResponse<PostModel[]>>  => {
+    return axiosInstance.get('/posts/user/' + id)
 }
+
 
 export {
     getAllUsers,
-    getAllPosts
+    getAllPostsOfUser
 }

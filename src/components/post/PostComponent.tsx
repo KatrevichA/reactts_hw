@@ -1,19 +1,15 @@
-import React,{FC} from 'react';
+import React, {FC} from 'react';
 import {PostModel} from "../../models/postModel/PostModel";
 
-interface IPost {
-    post: PostModel
+interface IProps {
+    post:PostModel;
 }
+type IPostType = IProps & {children?: React.ReactNode};
 
-export type IPostType = IPost & {children?: React.ReactNode};
-
-const PostComponent:FC <IPostType> = ({post}) => {
-
-
-
+const PostComponent:FC<IPostType> = ({post}) => {
     return (
         <div>
-            <h4>{post.id} - {post.title} - {post.body} - {post.userId} - {post.tags} - {post.reactions}</h4>
+            {post.id} {post.title}
         </div>
     );
 };

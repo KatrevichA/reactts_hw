@@ -1,27 +1,24 @@
 import React, {FC, useEffect, useState} from 'react';
 import {IUserModel} from "../../models/userModel/UserModel";
-import {getAllUsers} from "../../services/users.api.service";
+import {getAllUsers} from "../../services/dummyjson.api.service";
 import UserComponent from "../user/UserComponent";
 
-const UsersComponents:FC = () => {
+type IUsersType = {lift?:(userId:number) => void};
+
+const UsersComponents:FC<IUsersType> = ({lift}) => {
 
 const [users, setUsers] = useState <IUserModel[]>([]);
-
     useEffect(() => {
-        getAllUsers().then(({data}) => setUsers(data.users));
+        getAllUsers().then(({data:{users}}) => setUsers(users));
     }, []);
 
 
     return (
         <div>
             {
-                users.map((value: IUserModel) => (
-                    <UserComponent key = {value.id}
-                                   id={value.id}
-                                   firstName={value.firstName}
-                                   image={value.image}
-                          />
-                ))
+               users.map((user) => (
+                   <UserComponent key={user.id} user={user} lift={lift}/>
+               ))
             }
         </div>
     );
