@@ -1,13 +1,12 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
-import {userValidator} from "../validators/user.validator";
+import {postValidator} from "../validators/post.validator";
+import {IPostModel} from "../models/IPostModel";
+import {postService} from "../services/api.service";
+import {IFormProps} from "../models/IFofmProps";
 
-interface IFormProps {
-    username: string,
-    age:number,
-    password:string,
-}
+
 
 const FormComponent:FC = () => {
 
@@ -15,29 +14,41 @@ const FormComponent:FC = () => {
         register,
         handleSubmit,
         formState: {errors, isValid}
-    } = useForm<IFormProps>({mode:"all", resolver:joiResolver(userValidator)});
+    } = useForm<IFormProps>({mode:"all", resolver:joiResolver(postValidator)});
+
+    const [post, setPost] = useState<IPostModel | null>(null)
 
 
-    const save = (xxx:IFormProps) => {
-        console.log(xxx);
+    const save = (post:IFormProps) => {
+        postService.savePost(post).then (value => setPost(value.data))
     };
+
     return (
         <div>
             <form onSubmit={handleSubmit(save)}>
-                <input type="text" {...register('username')}/>
+                <input type="text" {...register('title')}/>
                 {
-                    errors.username && <span>{errors.username.message}</span>
+                    errors.title && <span>{errors.title.message}</span>
                 }
                 <br/>
-                <input type="number" {...register('age')} />
+                <input type="text" {...register('body')} />
                 {
-                    errors.age && <span>{errors.age.message}</span>
+                    errors.body && <span>{errors.body.message}</span>
                 }
                 <br/>
-                <input type="text" {...register('password')} />
+                <input type="number" {...register('userId')}/>
+                {
+                    errors.userId && <span>{errors.userId.message}</span>
+                }
                 <br/>
                 <button type="submit">Save</button>
             </form>
+
+            {/*or*/}
+
+            {/*<h2>Save post {post?.id}</h2>*/}
+            {post && <h2>Save post {post.id} {post.title}</h2>}
+
         </div>
     );
 };
