@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useForm} from "react-hook-form";
 import {AuthDataModel} from "../models/AuthDataModel";
+import {authService} from "../services/api.service";
 
 
 const FormComponent = () => {
@@ -8,10 +9,10 @@ const FormComponent = () => {
    const {
        handleSubmit,
        register
-   } = useForm<AuthDataModel>({defaultValues: {username:'userAA', password:'D@&&user4'}});
+   } = useForm<AuthDataModel>({defaultValues: {username:'userAA', password:'P@$$word1'}});
 
    const authenticate = async (formData:AuthDataModel) => {
-     const isAuth = await authService. authentication(formData);
+     const isAuth = await authService.authentication(formData);
      setIsAuthState(isAuth);
    }
 
@@ -29,6 +30,7 @@ const FormComponent = () => {
             <form onSubmit={handleSubmit(authenticate)}>
                 <input type="text" {...register('username')}/>
                 <input type="text" {...register('password')}/>
+                <button>Login Auth me</button>
             </form>
 
         </div>
