@@ -8,7 +8,7 @@ const routes: RouteObject[] =[
     {path:'', element:<App/>, children:[
             {path:'users', element:<UsersPage/>},
             {path:'posts', element:<PostsPage/>},
-            {path:'user/:id', element:<UserPage/>}
+            {path:'users/:id', element:<UserPage/>}
         ]}
 ]
 
